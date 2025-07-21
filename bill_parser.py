@@ -10,6 +10,7 @@ def search_ai_bills(directory):
     @return: List of dictionaries containing AI-related bill information
     """
     ai_bills = []
+    ai_terms = ['artificial intelligence']
     
     # Walking through all JSON files in the directory (US Folder)
     for root, _, files in os.walk(directory):
@@ -26,7 +27,7 @@ def search_ai_bills(directory):
                         description = bill_data.get('description', '').lower()
                         
                         # Checking if bill is AI-related
-                        if 'artificial intelligence' in title or 'artificial intelligence' in description:
+                        if any(term in title.lower() or term in description.lower() for term in ai_terms):
                             ai_bills.append({
                                 'bill_number': bill_data.get('bill_number', ''),
                                 'title': bill_data.get('title', ''),
